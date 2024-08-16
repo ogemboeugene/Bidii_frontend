@@ -12,13 +12,15 @@ const NotificationWindow = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [unreadCount, setUnreadCount] = useState(0);
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // Fetch notifications from the backend
   const fetchNotifications = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('authToken');
-      const response = await axios.get('http://localhost:5000/notifications', {
+      const response = await axios.get(`${apiUrl}/notifications`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -63,7 +65,7 @@ const NotificationWindow = () => {
   const handleMarkAsRead = async (id) => {
     try {
       const token = localStorage.getItem('authToken');
-      await axios.put(`http://localhost:5000/notifications/${id}/read`, {}, {
+      await axios.put(`${apiUrl}/notifications/${id}/read`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -81,7 +83,7 @@ const NotificationWindow = () => {
   const handleMarkAllAsRead = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      await axios.put('http://localhost:5000/notifications/read', {}, {
+      await axios.put(`${apiUrl}/notifications/read`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -98,7 +100,7 @@ const NotificationWindow = () => {
     if (window.confirm('Are you sure you want to delete this notification?')) {
       try {
         const token = localStorage.getItem('authToken');
-        await axios.delete(`http://localhost:5000/notifications/${id}`, {
+        await axios.delete(`${apiUrl}/notifications/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

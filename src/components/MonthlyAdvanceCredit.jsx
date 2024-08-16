@@ -14,12 +14,15 @@ const MonthlyAdvanceCredit = () => {
   const [monthlyCredits, setMonthlyCredits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchMonthlyAdvanceCredits = async () => {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5000/monthly_advance_credits', {
+        const response = await axios.get(`${apiUrl}/monthly_advance_credits`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

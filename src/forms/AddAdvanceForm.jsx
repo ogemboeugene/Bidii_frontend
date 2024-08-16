@@ -13,10 +13,13 @@ const AddAdvanceForm = ({ onClose, onAdd, groupId }) => { // Receive groupId as 
   // Retrieve the token from localStorage
   const getToken = () => localStorage.getItem('authToken');
 
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/member_details', {
+        const response = await fetch(`${apiUrl}/member_details`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${getToken()}`,
@@ -60,7 +63,7 @@ const AddAdvanceForm = ({ onClose, onAdd, groupId }) => { // Receive groupId as 
 
     try {
       // Include groupId in the request body
-      const response = await fetch('http://localhost:5000/advances', {
+      const response = await fetch(`${apiUrl}/advances`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

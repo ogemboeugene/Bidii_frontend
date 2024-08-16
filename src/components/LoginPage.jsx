@@ -14,7 +14,10 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const navigate = useNavigate();
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
@@ -27,7 +30,7 @@ const LoginPage = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/signin', { username, password });
+      const response = await axios.post(`${apiUrl}/signin`, { username, password });
       if (response.status === 200) {
         // Save the token in localStorage
         localStorage.setItem('authToken', response.data.token);

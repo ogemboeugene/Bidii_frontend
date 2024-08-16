@@ -4,6 +4,7 @@ import { faCog, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; // Ensure axios is installed
 import './css/ProfileDropdown.css'; // Import CSS for styling
 
+
 const ProfileDropdown = ({
   profileImageSrc = 'https://via.placeholder.com/50',
   onLogout = () => alert('Logging out...')
@@ -16,9 +17,12 @@ const ProfileDropdown = ({
     active: false
   });
 
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     // Fetch user info when the component mounts
-    axios.get('http://localhost:5000/user_info', {
+    axios.get(`${apiUrl}/user_info`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}` // Ensure the token is correctly set in localStorage
       }

@@ -31,7 +31,9 @@ const Dashboard = () => {
   const [total_active_users, setTotalActiveUsers] = useState(0);
   const [current_user, setTotalCurrentUser] = useState(0);
 
-  
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // const [selectedGroup, setSelectedGroup] = useState(''); 
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('authToken');
 
       if (token) {
-        axios.get('http://127.0.0.1:5000/monthly_performances', {
+        axios.get(`${apiUrl}/monthly_performances`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -51,7 +53,7 @@ const Dashboard = () => {
           console.error("There was an error fetching the group performances!", error);
         });
      // Fetch total members
-     axios.get('http://127.0.0.1:5000/member_names', {
+     axios.get(`${apiUrl}/member_names`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -113,7 +115,7 @@ const Dashboard = () => {
     if (editingPerformanceId) {
       // Update existing performance
       if (token) {
-        axios.put(`http://127.0.0.1:5000/monthly_performances/${editingPerformanceId}`, editFormData, {
+        axios.put(`${apiUrl}/monthly_performances/${editingPerformanceId}`, editFormData, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',

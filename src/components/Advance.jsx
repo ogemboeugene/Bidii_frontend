@@ -19,6 +19,9 @@ const Advance = ({ groupId }) => {
     // console.log('Group ID in Advance Component:', groupId);
   }, [groupId]);
 
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Fetch advances data
   const fetchAdvances = async () => {
     if (!groupId) {
@@ -28,7 +31,7 @@ const Advance = ({ groupId }) => {
     }
 
     try {
-      const url = `http://localhost:5000/advances?group_id=${groupId}`;
+      const url = `${apiUrl}/advances?group_id=${groupId}`;
       // console.log('Fetching data from URL:', url);
 
       const token = localStorage.getItem('authToken');
@@ -57,7 +60,7 @@ const Advance = ({ groupId }) => {
 
     try {
       setFormGenerationStatus('Generating form...');
-      const url = 'http://localhost:5000/generate_monthly_form';
+      const url = `${apiUrl}/generate_monthly_form`;
       const token = localStorage.getItem('authToken');
 
       // Generate form
@@ -76,7 +79,7 @@ const Advance = ({ groupId }) => {
         created_at: new Date().toISOString() // ISO format for created_at
       };
 
-      await axios.post('http://localhost:5000/notifications', 
+      await axios.post(`${apiUrl}/notifications`, 
         notificationData, 
         {
           headers: {
@@ -126,7 +129,7 @@ const Advance = ({ groupId }) => {
   const handleSaveClick = async (id) => {
     try {
       const token = localStorage.getItem('authToken');
-      await axios.patch(`http://localhost:5000/advances/${id}`, { paid_amount: editedPaidAmount }, {
+      await axios.patch(`${apiUrl}/advances/${id}`, { paid_amount: editedPaidAmount }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

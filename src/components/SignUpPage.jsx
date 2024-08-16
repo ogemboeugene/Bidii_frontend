@@ -18,6 +18,8 @@ const SignUpPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for showing password
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for showing confirm password
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -44,7 +46,7 @@ const SignUpPage = () => {
       const transformedRole = role.toLowerCase();
 
       // API request to signup endpoint
-      const response = await axios.post('http://127.0.0.1:5000/signup', {
+      const response = await axios.post(`${apiUrl}/signup`, {
         username: fullName,
         email,
         password,

@@ -11,12 +11,14 @@ const Groups = ({ selectedGroupId, selectedGroupName }) => {
   const [groupPerformances, setGroupPerformances] = useState([]);
   const [editingRowId, setEditingRowId] = useState(null); // State to manage the row being edited
   const [formFields, setFormFields] = useState({}); // State for form fields
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const fetchGroupPerformances = useCallback(() => {
     const token = localStorage.getItem('authToken');
     
     if (token && selectedGroupId) {
-      axios.get(`http://127.0.0.1:5000/group_performances?group_id=${selectedGroupId}`, {
+      axios.get(`${apiUrl}/group_performances?group_id=${selectedGroupId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -52,7 +54,7 @@ const Groups = ({ selectedGroupId, selectedGroupName }) => {
     const token = localStorage.getItem('authToken');
     
     if (token && selectedGroupId) {
-      axios.post('http://127.0.0.1:5000/generate_form', 
+      axios.post(`${apiUrl}/generate_form`, 
         { group_id: selectedGroupId },
         {
           headers: {
@@ -72,7 +74,7 @@ const Groups = ({ selectedGroupId, selectedGroupName }) => {
           created_at: new Date().toISOString() // ISO format for created_at
         };
 
-        axios.post('http://127.0.0.1:5000/notifications', 
+        axios.post(`${apiUrl}/notifications`, 
           notificationData,
           {
             headers: {
@@ -127,7 +129,7 @@ const Groups = ({ selectedGroupId, selectedGroupName }) => {
       // Log the data being sent
       // console.log("Data being sent to the backend:", requestData);
 
-      axios.post('http://127.0.0.1:5000/group_performances', 
+      axios.post(`${apiUrl}/group_performances`, 
         requestData,
         {
           headers: {

@@ -18,6 +18,8 @@ const AddGroupMonthlyPerformanceForm = ({ onClose, group_id, token, group_name }
         this_month_shares: '',
         fine_and_charges: '',
     });
+    // Base URL from environment variable
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         // Log groupName to see if it's received correctly
@@ -55,7 +57,7 @@ const AddGroupMonthlyPerformanceForm = ({ onClose, group_id, token, group_name }
         // console.log('Submitting data:', requestBody);
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/group_performances', requestBody, {
+            const response = await axios.post(`${apiUrl}/group_performances`, requestBody, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

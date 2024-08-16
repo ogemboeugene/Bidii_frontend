@@ -13,10 +13,13 @@ const AddMonthlyAdvanceCreditForm = ({ onClose, onAdd }) => {
   const [groupOptions, setGroupOptions] = useState([]);
   const [filteredGroupOptions, setFilteredGroupOptions] = useState([]);
 
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchGroupNames = async () => {
       try {
-        const response = await fetch('http://localhost:5000/monthly_performance/filter', {
+        const response = await fetch(`${apiUrl}/monthly_performance/filter`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
@@ -75,7 +78,7 @@ const AddMonthlyAdvanceCreditForm = ({ onClose, onAdd }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/monthly_advance_credits', {
+      const response = await fetch(`${apiUrl}/monthly_advance_credits`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

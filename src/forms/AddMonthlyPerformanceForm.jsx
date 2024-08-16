@@ -37,11 +37,14 @@ const AddMonthlyPerformanceForm = ({ onClose, onAdd }) => {
   
     const token = localStorage.getItem('token'); // Replace with your token retrieval logic
     const requestBody = { ...formData, month: monthName, year };
+    // Use environment variable for the API URL
+    const apiUrl = process.env.REACT_APP_API_URL;
   
+
     // console.log('Submitting data:', requestBody);
   
     try {
-      const response = await fetch('http://localhost:5000/monthly_performance', {
+      const response = await fetch(`${apiUrl}/monthly_performance`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

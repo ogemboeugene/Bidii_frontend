@@ -10,13 +10,15 @@ const HistoryTable = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [selectedHistoryId, setSelectedHistoryId] = useState(null);
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   // Fetch history data from the backend
   const fetchHistoryData = () => {
     const token = localStorage.getItem('authToken');
 
     if (token) {
-      axios.get('http://localhost:5000/histories', {
+      axios.get(`${apiUrl}/histories`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

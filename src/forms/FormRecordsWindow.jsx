@@ -14,11 +14,13 @@ const FormRecordsWindow = ({ historyId, onClose }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchFormRecords = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/form_records/${historyId}`, {
+        const response = await axios.get(`${apiUrl}/form_records/${historyId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('authToken')}`,
           },
@@ -80,7 +82,7 @@ const FormRecordsWindow = ({ historyId, onClose }) => {
 
   const handleRefresh = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/form_records/${historyId}`, {
+      const response = await axios.get(`${apiUrl}/form_records/${historyId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },

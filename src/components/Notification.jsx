@@ -10,14 +10,16 @@ const Notification = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  // Base URL from environment variable
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
   // Fetch notifications from the API
   useEffect(() => {
     const fetchNotifications = async () => {
       setLoading(true);
       try {
         const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://localhost:5000/notifications', {
+        const response = await axios.get(`${apiUrl}notifications`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
